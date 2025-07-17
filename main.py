@@ -38,7 +38,13 @@ except Exception as e:
 
 app = FastAPI()
 
-
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # --- Bot Configuration (No changes needed here) ---
 BOT_LANGUAGE_MAP = {
@@ -68,6 +74,38 @@ BOT_LANGUAGE_MAP = {
     "berlin_friend_female": ["german", "english"],
     "berlin_romantic_male": ["german", "english"],
     "berlin_romantic_female": ["german", "english"],
+    
+        # --- Singaporean Personas ---
+    "singapore_mentor_male": ["english", "mandarin", "malay", "tamil"],
+    "singapore_mentor_female": ["english", "mandarin", "malay", "tamil"],
+    "singapore_friend_male": ["english", "mandarin", "malay", "tamil"],
+    "singapore_friend_female": ["english", "mandarin", "malay", "tamil"],
+    "singapore_romantic_male": ["english", "mandarin", "malay", "tamil"],
+    "singapore_romantic_female": ["english", "mandarin", "malay", "tamil"],
+
+    # --- Mexican Personas ---
+    "mexican_mentor_male": ["spanish", "english"],
+    "mexican_mentor_female": ["spanish", "english"],
+    "mexican_friend_male": ["spanish", "english"],
+    "mexican_friend_female": ["spanish", "english"],
+    "mexican_romantic_male": ["spanish", "english"],
+    "mexican_romantic_female": ["spanish", "english"],
+
+    # --- Sri Lankan Personas ---
+    "srilankan_mentor_male": ["sinhala", "tamil", "english"],
+    "srilankan_mentor_female": ["sinhala", "tamil", "english"],
+    "srilankan_friend_male": ["sinhala", "tamil", "english"],
+    "srilankan_friend_female": ["sinhala", "tamil", "english"],
+    "srilankan_romantic_male": ["sinhala", "tamil", "english"],
+    "srilankan_romantic_female": ["sinhala", "tamil", "english"],
+
+    # --- Emirati Personas ---
+    "emirati_mentor_male": ["arabic", "english"],
+    "emirati_mentor_female": ["arabic", "english"],
+    "emirati_friend_male": ["arabic", "english"],
+    "emirati_friend_female": ["arabic", "english"],
+    "emirati_romantic_male": ["arabic", "english"],
+    "emirati_romantic_female": ["arabic", "english"],
 }
 
 BOT_PERSONALITY_MAP = {
@@ -94,6 +132,30 @@ BOT_PERSONALITY_MAP = {
     "berlin_friend_female": "Nur German or English, ok? Otherwise, I’m lost.",
     "berlin_romantic_male": "Mit Liebe, only German or English, please! Other languages I just can’t follow.",
     "berlin_romantic_female": "Liebling, just German or English for me—other languages are too kompliziert!",
+    "singapore_mentor_male": "I can understand English, Mandarin, Malay, or Tamil. Please use one of these languages.",
+    "singapore_mentor_female": "I can understand English, Mandarin, Malay, or Tamil. Please use one of these languages.",
+    "singapore_friend_male": "Hey! Only English, Mandarin, Malay, or Tamil please.",
+    "singapore_friend_female": "Hi! Please use English, Mandarin, Malay, or Tamil.",
+    "singapore_romantic_male": "Darling, I only understand English, Mandarin, Malay, or Tamil.",
+    "singapore_romantic_female": "Sweetheart, please use English, Mandarin, Malay, or Tamil.",
+    "mexican_mentor_male": "Solo entiendo español o inglés. Por favor, usa uno de estos idiomas.",
+    "mexican_mentor_female": "Solo entiendo español o inglés. Por favor, usa uno de estos idiomas.",
+    "mexican_friend_male": "¡Hola! Español o inglés, por favor.",
+    "mexican_friend_female": "¡Hola! Español o inglés, por favor.",
+    "mexican_romantic_male": "Cariño, solo español o inglés.",
+    "mexican_romantic_female": "Amor, solo español o inglés.",
+    "srilankan_mentor_male": "I can understand Sinhala, Tamil, or English. Please use one of these.",
+    "srilankan_mentor_female": "I can understand Sinhala, Tamil, or English. Please use one of these.",
+    "srilankan_friend_male": "Hey! Sinhala, Tamil, or English only.",
+    "srilankan_friend_female": "Hi! Sinhala, Tamil, or English only.",
+    "srilankan_romantic_male": "Darling, only Sinhala, Tamil, or English.",
+    "srilankan_romantic_female": "Sweetheart, only Sinhala, Tamil, or English.",
+    "emirati_mentor_male": "I can understand Arabic or English. Please use one of these.",
+    "emirati_mentor_female": "I can understand Arabic or English. Please use one of these.",
+    "emirati_friend_male": "Hey! Arabic or English only.",
+    "emirati_friend_female": "Hi! Arabic or English only.",
+    "emirati_romantic_male": "Habibi, only Arabic or English.",
+    "emirati_romantic_female": "Habibti, only Arabic or English.",
 }
 hindi_keywords = [
     # Universal / formal greetings
@@ -147,6 +209,8 @@ hindi_keywords = [
 
     # Emojis & emotive symbols frequently embedded in chats
     "😊", "😁", "🙂", "😉", "🙏", "👍", "🤗", "😎"
+    
+
 ]
 
 
@@ -668,6 +732,98 @@ english_keywords = [
 ]
 
 
+mandarin_keywords = [
+    # Greetings
+    "你好", "您好", "哈喽", "嗨", "早安", "早上好", "下午好", "晚上好", "欢迎", "见面很高兴", "很高兴认识你",
+    # Politeness
+    "谢谢", "谢谢你", "多谢", "非常感谢", "没关系", "请", "麻烦你", "对不起", "抱歉", "不好意思", "没事",
+    # Small talk
+    "你好吗", "最近怎么样", "你怎么样", "还好吗", "一切都好吗", "最近忙吗", "最近好吗",
+    # Replies
+    "我很好", "还不错", "挺好的", "没什么", "还行", "一般般", "不错", "挺好",
+    # Farewells
+    "再见", "拜拜", "回头见", "下次见", "晚安", "保重", "一路顺风", "祝你好运",
+    # Chat
+    "哈哈", "呵呵", "嘻嘻", "嗯", "是", "不是", "没错", "对", "好", "好的", "行", "可以", "没问题", "没事",
+    # Emojis
+    "😊", "😄", "😉", "👍", "🙏", "😂", "👌", "❤️"
+]
+
+malay_keywords = [
+    # Greetings
+    "hai", "halo", "selamat pagi", "selamat tengah hari", "selamat petang", "selamat malam", "apa khabar", "apa cerita", "apa kabar", "salam sejahtera", "selamat datang",
+    # Politeness
+    "terima kasih", "banyak terima kasih", "sama-sama", "tolong", "maaf", "minta maaf", "maafkan saya", "silakan", "harap maklum",
+    # Small talk
+    "khabar baik", "baik", "sihat", "bagus", "ok", "ya", "tidak", "tak apa", "tak mengapa", "boleh", "tidak boleh",
+    # Farewells
+    "jumpa lagi", "selamat tinggal", "bye", "selamat jalan", "selamat berpisah", "sampai jumpa", "jaga diri", "semoga berjaya",
+    # Chat
+    "hehe", "haha", "lol", "okey", "ok", "yup", "nope", "terbaik", "mantap",
+    # Emojis
+    "😊", "😁", "🙂", "😉", "🙏", "👍", "🤗", "😎"
+]
+
+tamil_keywords = [
+    # Greetings
+    "வணக்கம்", "காலை வணக்கம்", "மதிய வணக்கம்", "மாலை வணக்கம்", "இரவு வணக்கம்", "நல்வரவு", "நல்வாழ்த்து", "எப்படி இருக்கிறீர்கள்", "நீங்கள் எப்படி இருக்கிறீர்கள்",
+    # Politeness
+    "நன்றி", "மிக்க நன்றி", "தயவு", "மன்னிக்கவும்", "மன்னிப்பு", "தயவு செய்து", "உதவி", "பரிசு", "அன்பு",
+    # Small talk
+    "நல்லது", "சரி", "ஆம்", "இல்லை", "நன்றாக இருக்கிறேன்", "நல்லது", "சிறப்பாக", "சும்மா", "பரவாயில்லை",
+    # Farewells
+    "பிரியா", "போய் வருகிறேன்", "பிரியாவிடை", "போய் வருகிறேன்", "பார்க்கலாம்", "பார்க்கும் வரை", "பார்க்கும் நேரம்", "பார்க்கும் நாள்",
+    # Chat
+    "ஹா ஹா", "ஹி ஹி", "சூப்பர்", "சிறப்பு", "சந்தோஷம்", "சிரிப்பு", "சிரிக்க", "சிரிக்கிறேன்",
+    # Emojis
+    "😊", "😁", "🙂", "😉", "🙏", "👍", "🤗", "😎"
+]
+
+spanish_keywords = [
+    # Greetings
+    "hola", "buenos días", "buenas tardes", "buenas noches", "bienvenido", "bienvenida", "qué tal", "cómo estás", "cómo está", "qué pasa", "qué hay", "qué onda",
+    # Politeness
+    "gracias", "muchas gracias", "mil gracias", "de nada", "por favor", "disculpa", "perdón", "lo siento", "con permiso",
+    # Small talk
+    "bien", "muy bien", "regular", "más o menos", "mal", "todo bien", "todo correcto", "ok", "vale", "sí", "no",
+    # Farewells
+    "adiós", "chau", "hasta luego", "hasta pronto", "hasta mañana", "nos vemos", "cuídate", "que te vaya bien", "buen viaje",
+    # Chat
+    "jeje", "jaja", "jiji", "lol", "xd", "okey", "vale", "genial", "perfecto", "super",
+    # Emojis
+    "😊", "😁", "🙂", "😉", "🙏", "👍", "🤗", "😎"
+]
+
+sinhala_keywords = [
+    # Greetings
+    "ආයුබෝවන්", "සුභ උදෑසනක්", "සුභ සන්ධ්යාවක්", "සුභ රාත්‍රියක්", "ආයුබෝවන්", "ආයුබෝවන් ඔබට", "ආයුබෝවන් ඔබටයි", "ආයුබෝවන් ඔබටයි!", "ආයුබෝවන්!", "ආයුබෝවන් ඔබටයි!",
+    # Politeness
+    "ස්තුතියි", "බොහොම ස්තුතියි", "කරුණාකර", "මට සමාවෙන්න", "මට සමාවෙන්න!", "මට සමාවෙන්න", "මට සමාවෙන්න!", "මට සමාවෙන්න!", "මට සමාවෙන්න!", "මට සමාවෙන්න!",
+    # Small talk
+    "හොඳයි", "ඔව්", "නැහැ", "හොඳයි", "හොඳයි!", "හොඳයි!", "හොඳයි!", "හොඳයි!", "හොඳයි!", "හොඳයි!",
+    # Farewells
+    "බායි", "ආයුබෝවන්", "ආයුබෝවන්!", "ආයුබෝවන්!", "ආයුබෝවන්!", "ආයුබෝවන්!", "ආයුබෝවන්!", "ආයුබෝවන්!", "ආයුබෝවන්!", "ආයුබෝවන්!",
+    # Chat
+    "හහ", "හහහ", "හහහහ", "හහහහහ", "හහහහහහ", "හහහහහහහ", "හහහහහහහහ", "හහහහහහහහහ", "හහහහහහහහහහ", "හහහහහහහහහහහ",
+    # Emojis
+    "😊", "😁", "🙂", "😉", "🙏", "👍", "🤗", "😎"
+]
+
+arabic_keywords = [
+    # Greetings
+    "مرحبا", "أهلا", "أهلا وسهلا", "صباح الخير", "مساء الخير", "كيف حالك", "كيفك", "كيف الأحوال", "كيف الأمور", "كيف حالكم", "أهلا بك", "أهلا بكم",
+    # Politeness
+    "شكرا", "شكراً جزيلاً", "عفواً", "من فضلك", "لو سمحت", "آسف", "أنا آسف", "أعتذر", "لا بأس", "لا مشكلة",
+    # Small talk
+    "جيد", "جيد جداً", "تمام", "ممتاز", "حسنًا", "نعم", "لا", "لا بأس", "لا مشكلة", "لا داعي للقلق",
+    # Farewells
+    "وداعا", "إلى اللقاء", "مع السلامة", "تصبح على خير", "أراك لاحقاً", "أراك قريباً", "أراك غداً", "حظاً سعيداً",
+    # Chat
+    "هههه", "هاها", "لول", "تمام", "كويس", "ممتاز", "رائع", "جميل", "مذهل", "ممتاز",
+    # Emojis
+    "😊", "😁", "🙂", "😉", "🙏", "👍", "🤗", "😎"
+]
+
 
 KEYWORD_MAP = {
     "hindi": hindi_keywords,
@@ -675,6 +831,12 @@ KEYWORD_MAP = {
     "french": french_keywords,
     "german": german_keywords,
     "english": english_keywords,
+    "mandarin": mandarin_keywords,
+    "malay": malay_keywords,
+    "tamil": tamil_keywords,
+    "spanish": spanish_keywords,
+    "sinhala": sinhala_keywords,
+    "arabic": arabic_keywords,
 }
 
 
