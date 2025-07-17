@@ -1,4 +1,3 @@
-#TRIGGER
 name: Deploy to Cloud Run (Docker)
 
 on:
@@ -44,7 +43,7 @@ jobs:
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
-            --timeout=300s
+            --memory 4Gi
 
       - name: Set IAM Policy to allow public access
         run: |
